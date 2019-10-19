@@ -1,24 +1,14 @@
 import { Player } from "./Player.js";
+import { Zombie } from "./Zombie.js";
 
 export class Game {
-  canvas: HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D;
-  player: Player;
-  pressedKeys: string[];
+  canvas: HTMLCanvasElement = document.querySelector("canvas")!;
+  ctx = <CanvasRenderingContext2D>this.canvas.getContext("2d");
+  player = new Player();
+  pressedKeys: string[] = [];
+  zombies: Zombie[] = [];
 
   constructor() {
-    this.canvas = document.querySelector("canvas")!;
-    this.ctx = <CanvasRenderingContext2D>this.canvas.getContext("2d");
-    this.canvas.width = window.innerWidth * 2;
-    this.canvas.height = window.innerHeight * 2;
-    this.canvas.style.width = `${window.innerWidth}px`;
-    this.canvas.style.height = `${window.innerHeight}px`;
-    this.ctx.scale(2, 2);
-
-    this.pressedKeys = [];
-
-    this.player = new Player();
-
     this.registerListeners();
     this.start();
   }
@@ -44,6 +34,12 @@ export class Game {
   }
 
   start() {
+    this.canvas.width = window.innerWidth * 2;
+    this.canvas.height = window.innerHeight * 2;
+    this.canvas.style.width = `${window.innerWidth}px`;
+    this.canvas.style.height = `${window.innerHeight}px`;
+    this.ctx.scale(2, 2);
+
     let lastTimestamp = 0;
 
     const loop = (timestamp: number = 0) => {
@@ -74,6 +70,14 @@ export class Game {
   }
 
   update() {
+    // player
     this.player.update(this);
+
+    // zombies
+    Zombie.spawnZombies(this.zombies);
+    for (let i = 0; i < this.zombies.length; i++) {
+      const zombie = this.zombies[i];
+      zombie.update(this);
+    }
   }
 }

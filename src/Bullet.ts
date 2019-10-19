@@ -3,8 +3,8 @@ export class Bullet {
   moveY: number;
 
   constructor(
-    private x: number,
-    private y: number,
+    public x: number,
+    public y: number,
     private dx: number,
     private dy: number,
     private removeBullet: (bullet: Bullet) => void,
