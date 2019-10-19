@@ -39,6 +39,8 @@ export class Game {
       }
     };
     document.addEventListener("keyup", removeReleasedKeys);
+
+    document.addEventListener("click", event => this.player.shoot(event));
   }
 
   start() {
