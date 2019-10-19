@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2015", "es7"],
+    "target": "es5",
+    "module": "es2015",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./public/js"
+  },
+  "include": ["./src/**/*"]
+}
