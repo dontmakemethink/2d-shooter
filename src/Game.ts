@@ -1,10 +1,11 @@
 import { Player } from "./Player.js";
 import { Zombie } from "./Zombie.js";
+import { bulletsZombies } from "./colissions/bullets-zombies.js";
 
 export class Game {
   canvas: HTMLCanvasElement = document.querySelector("canvas")!;
   ctx = <CanvasRenderingContext2D>this.canvas.getContext("2d");
-  player = new Player();
+  player = new Player(this);
   pressedKeys: string[] = [];
   zombies: Zombie[] = [];
 
@@ -70,11 +71,14 @@ export class Game {
   }
 
   update() {
+    // colissions
+    bulletsZombies(this.player.bullets, this.zombies);
+
     // player
-    this.player.update(this);
+    this.player.update();
 
     // zombies
-    Zombie.spawnZombies(this.zombies);
+    Zombie.spawnZombies(this);
     for (let i = 0; i < this.zombies.length; i++) {
       const zombie = this.zombies[i];
       zombie.update(this);
