@@ -12,6 +12,7 @@ export class Zombie {
   width = 50;
   height = 140;
   walkingSpeed = 2;
+  health = 100;
 
   constructor(private game: Game) {
     this.x = window.innerWidth + 20;
@@ -23,10 +24,24 @@ export class Zombie {
 
     ctx.fillStyle = "brown";
     ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    ctx.fillStyle = "gray";
+    ctx.fillRect(this.x, this.y - 16, this.width, 4);
+
+    ctx.fillStyle = `hsl(${120 * (this.health / 100)}, 100%, 50%)`;
+    ctx.fillRect(this.x, this.y - 16, this.width * (this.health / 100), 4);
   }
 
   move() {
     this.x -= this.walkingSpeed;
+  }
+
+  hurt(damage: number) {
+    this.health -= damage;
+
+    if (this.health <= 0) {
+      this.die();
+    }
   }
 
   die() {

@@ -59,9 +59,10 @@ export class Game {
 
   drawFps(timestampDiff: number) {
     const fps = Math.floor(1000 / timestampDiff).toString();
-    this.ctx.textBaseline = "top";
     const text = `FPS ${fps}`;
     const textWidth = this.ctx.measureText(text).width;
+    this.ctx.textBaseline = "top";
+    this.ctx.fillStyle = "black";
 
     this.ctx.fillText(text, window.innerWidth - textWidth - 16, 16);
   }

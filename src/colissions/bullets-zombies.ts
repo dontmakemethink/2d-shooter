@@ -24,7 +24,7 @@ export function bulletsZombies(bullets: Bullet[], zombies: Zombie[]) {
       );
 
       if (collision) {
-        zombie.die();
+        zombie.hurt(bullet.damage);
         bullet.destroy();
       }
     }

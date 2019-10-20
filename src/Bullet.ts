@@ -4,6 +4,7 @@ export class Bullet {
   moveX: number;
   moveY: number;
   radius = 5;
+  damage = 27;
 
   constructor(
     public x: number,
